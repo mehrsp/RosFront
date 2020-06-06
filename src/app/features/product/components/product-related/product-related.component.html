@@ -1,0 +1,97 @@
+<p-confirmDialog header="اخطار!" icon="pi pi-question-circle" [style]="{width: '425px'}" #cd>
+        <p-footer>
+          <button type="button" pButton  label="بله"  class="ok" (click)="cd.accept()"></button>
+          <button type="button" pButton  label="خیر" (click)="cd.reject()"></button>
+        </p-footer>
+</p-confirmDialog>
+
+<p-dialog appendToBody="true" modal="true" [appendTo]="'body'"
+  [(visible)]="isRelated">
+  <div class="ui-g form-group ui-rtl" dir="rtl">
+        <form #ProductRelated="ngForm" class="mt-5" (ngSubmit)="onSubmit($event)">
+            <div class="ui-g form-group">
+                      <!-- start descripiton label & input  -->
+                        <div class="ui-g-12 ui-md-4">
+                            <label for="input">توضیحات</label>
+                        </div>
+                        <div class="ui-g-12 ui-md-8">
+                            <span class="md-inputfield">
+                            <input name="descripiton" [(ngModel)]="model.Description" autofocus id="descripiton" 
+                            #name="ngModel"
+                            (keyup)="onKey(model.Description)"
+                            type="text" pInputText />
+                            </span>
+                        </div>
+                    <!-- end of description label & input  -->
+        
+                    <!-- start link label & input  -->
+                     <div class="ui-g-12 ui-md-4">
+                        <label for="input">لینک</label>
+                    </div>
+                    <div class="ui-g-12 ui-md-8">
+                        <span class="md-inputfield">
+                        <input name="link" [(ngModel)]="model.Link" id="link" 
+                            #name="ngModel"
+                            class=" text-left"
+                            dir="ltr"
+                            placeholder="https://"
+                            (keyup)="onKey(model.Link)"
+                            type="text" pInputText required/>
+                        </span>
+                    </div>
+                    <!-- end of description label & input  -->
+                    <div class="ui-g-12">
+                        <button type="submit" class="btn btn-primary" 
+                            (ngSubmit)="onSubmit($event)"
+                            icon="pi pi-save" iconPos="left"
+                            [disabled]="!ProductRelated.form.valid || !isTrue" label="ذخیره" pButton></button>
+                    </div>
+            </div>
+        </form>
+  </div>
+</p-dialog>
+
+<div class="ui-fluid">
+    <div class="ui-g">
+        <div class="ui-g-12">
+            <div class="card no-margin ui-rtl" dir="rtl">
+                <div class="mt-5">
+                    <div class="ui-g form-group">
+                        <div class="ui-g-12 ui-md-12 text-right">
+                            <p-button label="ایجاد لینک جدید" icon="pi pi-plus" iconPos="left"
+                                (onClick)="onInsert($event)">
+                            </p-button>
+                        </div>
+                        <div *ngFor="let related of relateds;index as i" class="ui-g-12"> 
+                             
+                                <div class="ui-g-12 ui-md-12">
+                                    {{related.Description}}
+                                    
+                                    
+                                </div>
+                                <div class="ui-g-12 ui-md-12">
+                                    <a href="{{related.Link}}" target="_blank">{{related.Link}}</a>
+                                </div>
+                                <div class="ui-g-12 ui-md-2">
+                                        <button pButton type="button"
+                                        label="ویرایش" icon="pi pi-pencil" 
+                                        (click)="onOpenDialog(related)"  
+                                        style="margin-right: .25em"></button>
+                                </div>
+                                <div class="ui-g-12 ui-md-2">
+                                        <button pButton type="button" label="حذف" 
+                                        icon="pi pi-times" class="ui-button-danger" 
+                                        (click)="removeRelated(related)"></button>
+                                </div>
+                                <div class="ui-g-12 ui-md-10"></div>
+                                <hr class="w-100" *ngIf="i !== relateds.length - 1"/>
+                     
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+   

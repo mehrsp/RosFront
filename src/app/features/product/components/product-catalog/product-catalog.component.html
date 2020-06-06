@@ -1,0 +1,46 @@
+<p-confirmDialog header="اخطار!" icon="pi pi-question-circle" [style]="{width: '425px'}" #cd>
+        <p-footer>
+          <button type="button" pButton  label="بله"  class="ok" (click)="cd.accept()"></button>
+          <button type="button" pButton  label="خیر" (click)="cd.reject()"></button>
+        </p-footer>
+</p-confirmDialog>
+
+<div class="ui-fluid">
+    <div class="ui-g">
+        <div class="ui-g-12">
+            <div class="card no-margin ui-rtl" dir="rtl">
+                <div class="mt-5">
+                    <div class="ui-g form-group">
+                        <div class="ui-g-12 ui-md-4">
+                            <p-fileUpload  #form
+                                name="catalog[]" 
+                                customUpload="true"
+                                uploadLabel="آپلود"
+                                chooseLabel="افزودن کاتالوگ جدید" 
+                                cancelLabel="لغو"
+                                (uploadHandler)="onUpload($event,form)" 
+                                accept="application/pdf,.doc,.docx,.text,.txt"
+                                maxFileSize="30000000">
+                                <ng-template pTemplate="content">
+                                    <ul *ngIf="uploadedFiles.length">
+                                        <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                                    </ul>
+                                </ng-template>
+                            </p-fileUpload>
+                        </div>
+                        <div class="ui-g-12 ui-md-8"></div>
+                        <div *ngFor="let catalog of catalogs" 
+                              class="ui-g-12 ui-md-4">
+                            <p-splitButton label="{{catalog.Title}}" icon="pi pi-file"
+                                [model]="items" 
+                                styleClass="ui-button-info"
+                                (onDropdownClick)="onDropDowmClick(catalog)">
+                            </p-splitButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+   

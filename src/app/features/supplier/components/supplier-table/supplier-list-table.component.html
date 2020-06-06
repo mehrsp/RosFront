@@ -1,0 +1,56 @@
+<p-confirmDialog header="!یادداشت" icon="pi pi-question-circle" [style]="{width: '425px'}" #cd>
+        <p-footer>
+          <button type="button" pButton  label="بله"  class="ok" (click)="cd.accept()"></button>
+          <button type="button" pButton  label="خیر" (click)="cd.reject()"></button>
+        </p-footer>
+</p-confirmDialog>
+
+<div class="ui-rtl" dir="rtl">
+    <!-- <input #gb type="text" 
+    pInputText size="50" placeholder="جستـجو" style="margin-bottom: 20px;padding: 6px 3px;font-size: 16px;"> -->
+
+    <p-table #dt 
+      [value]="suppliers" 
+      [(selection)]="selectedSupplier"
+      [responsive]="true"
+      [columns]="cols" 
+      selectionMode="single">
+      <ng-template pTemplate="caption">
+            <div 
+            style="text-align: right;">        
+                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <input type="text" pInputText size="50" 
+                 placeholder="جست وجو"
+                 (input)="dt.filterGlobal($event.target.value, 'contains')" >
+            </div>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+          <tr>
+              <th *ngFor="let col of columns">
+                  {{col.header}}
+              </th>
+              <th style="width:8em"></th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-supplier let-columns="columns">
+          <tr [pSelectableRow]="supplier">
+              <td>{{supplier.Name}}</td>
+              <td>{{CompanyType(supplier.CompanyType)}}</td>
+              <td>{{supplier.Phone}}</td>
+              <td>{{supplier.Website}}</td>
+              <td>{{supplier.Fax}}</td>
+              <td>{{supplier.Email}}</td>
+              <td>
+                      <div class="btn-group" role="group" aria-label="First group">
+                        <button pButton title="ویرایش" type="button" class="ui-button-raised ui-button-info tbl-button" (click)="onEdit(supplier)">
+                          <span class="pi pi-pencil"></span>
+                        </button>
+                        <button pButton  title="حذف" type="button" class="ui-button-danger tbl-button" (click)="onRemove(supplier)">
+                          <span class="pi pi-times"></span>
+                        </button>
+                      </div>
+              </td>
+          </tr>
+      </ng-template>
+   </p-table>
+</div>

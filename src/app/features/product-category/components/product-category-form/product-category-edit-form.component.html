@@ -1,0 +1,40 @@
+<div class="ui-fluid">
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <div class="card no-margin">
+        <div class="ui-g ui-g-reverse">
+          <div class="ui-g-12 ui-md-6 text-right">
+            <h1>{{title}}</h1>
+          </div>
+          <div class="ui-g-12 ui-md-6 text-left">
+            <p-button label="" icon="pi pi-arrow-left" iconPos="left" (onClick)="onCancel($event)">
+            </p-button>
+          </div>
+        </div>
+        <form #CategoryForm="ngForm" class="mt-5" (ngSubmit)="onSubmit($event)">
+          <div class="ui-g form-group ui-g-reverse">
+            <div class="ui-g-12 ui-md-2 text-right">
+              <label for="input">نام دسته بندی</label>
+            </div>
+            <div class="ui-g-12 ui-md-4 text-right">
+              <span class="md-inputfield">
+                <input name="Name" [(ngModel)]="model.Name"
+                autofocus
+                id="name"
+                #name="ngModel"
+                (keyup)="onKey(model.Name)"
+                type="text"  pInputText required />
+              </span>
+            </div>
+            <div class="ui-g-12 ui-md-4">
+              <button type="submit" class="btn btn-primary" 
+              icon="pi pi-save" iconPos="left"
+              [disabled]="!isTrue || !CategoryForm.form.valid" label="ذخیره" pButton></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+ </div>
+  

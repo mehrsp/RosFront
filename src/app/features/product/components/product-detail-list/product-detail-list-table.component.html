@@ -1,0 +1,87 @@
+<p-confirmDialog header="!یادداشت" icon="pi pi-question-circle" [style]="{width: '425px'}" #cd>
+    <p-footer>
+      <button type="button" pButton  label="بله"  class="ok" (click)="cd.accept()"></button>
+      <button type="button" pButton  label="خیر" (click)="cd.reject()"></button>
+    </p-footer>
+</p-confirmDialog>
+
+<div class="ui-rtl" dir="rtl">
+       
+           <!-- start product-detail label & data-table  -->
+           <p-table [value]="productDetails" #dt [columns]="cols"
+           [responsive]="true"
+            dataKey="Id" editMode="row">
+            <ng-template pTemplate="caption">
+                  <div style="text-align: right">        
+                      <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                      <input type="text" pInputText size="50" 
+                      placeholder="جست وجو"
+                      (input)="dt.filterGlobal($event.target.value, 'contains')">
+                  </div>
+                 </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                    <th style="width:8em"></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
+                <tr [pEditableRow]="product" >
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text" name="Name" [(ngModel)]="product.Name" required>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                               {{product.Name}}  
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="number" 
+                                (keyup)="product.Price = thousands(product.Price)"
+                                name="price" [(ngModel)]="product.Price" required>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{thousands(product.Price)}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                               <span class="md-inputfield">
+                                 <p-inputSwitch (onChange)="changeQuantity(ri)" name="isQuantity{{ri}}" [(ngModel)]="product.IsQuantity"></p-inputSwitch>
+                               </span>  
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{QuantityStatus(product.IsQuantity)}}
+                            </ng-template>
+                        </p-cellEditor>
+                       
+                    </td>
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="number" name="quantity" [(ngModel)]="product.Quantity" required>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                               {{product.Quantity}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td style="text-align:center">
+                        <button *ngIf="!editing" title="ویرایش" pButton type="button" pInitEditableRow icon="pi pi-pencil" class="ui-button-info" (click)="onRowEditInit(product)"></button>
+                        <button *ngIf="!editing" title="حذف" pButton type="button" icon="pi pi-times" class="ui-button-danger tbl-button" (click)="onRemove(product)"></button>
+                        <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" class="ui-button-success" style="margin-right: .5em" (click)="onRowEditSave(product)"></button>
+                        <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" class="ui-button-danger" (click)="onRowEditCancel(product, ri)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+          </p-table>   
+          <!-- end of product-detail label & data-table -->  
+   </div>

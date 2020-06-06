@@ -1,0 +1,80 @@
+<p-confirmDialog header="!یادداشت" icon="pi pi-question-circle" [style]="{width: '425px'}" #cd>
+        <p-footer>
+          <button type="button" pButton  label="بله"  class="ok" (click)="cd.accept()"></button>
+          <button type="button" pButton  label="خیر" (click)="cd.reject()"></button>
+        </p-footer>
+</p-confirmDialog>
+
+<div class="ui-rtl" dir="rtl">
+    <p-table #dt [columns]="cols" selectionMode="single" 
+    [responsive]="true"
+    [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm"
+    (onRowSelect)="onRowSelect($event)"
+    (onRowUnselect)="onRowUnselect($event)"
+    [(selection)]="selectedProduct"  [value]="products">
+        <ng-template pTemplate="caption">
+              <div style="text-align: right">        
+                  <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                  <input type="text" pInputText size="50" 
+                   placeholder="جست وجو"
+                   (input)="dt.filterGlobal($event.target.value, 'contains')" >
+              </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+                <th style="width:8em"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product let-columns="columns">
+            <tr [pSelectableRow]="product" [pContextMenuRow]="product">
+                <td>{{product.Name}}</td>
+                <td>{{product.Price}}</td>
+                <td>{{QuantityStatus(product.Quantity)}}</td>
+                <td>{{product.Supplier?.Name}}</td>
+                <td>
+                        <div class="btn-group" role="group" aria-label="First group">
+                          <button pButton title="ویرایش" type="button" class="ui-button-raised ui-button-info tbl-button" (click)="onEdit(product)">
+                            <span class="pi pi-pencil"></span>
+                          </button>
+                          <button pButton  title="حذف" type="button" class="ui-button-danger tbl-button" (click)="onRemove(brand)">
+                            <span class="pi pi-times"></span>
+                          </button>
+                        </div>
+                </td>
+            </tr>
+        </ng-template>
+     </p-table>
+
+    <!-- <p-dataTable selectionMode="single" 
+      [value]="products" 
+      [globalFilter]="gb"
+      [(selection)]="selectedProduct"
+      [contextMenu]="cm"
+      [responsive]="true">
+      
+      <p-column field="Name" header="نام محصول"></p-column>
+      <p-column field="Price" header="قیمت"></p-column>
+      <p-column field="IsQuantity" header="وضعیت">
+          <ng-template let-file="rowData" pTemplate type="body">
+              {{QuantityStatus(file.IsQuantity)}}
+          </ng-template>  
+      </p-column>
+      <p-column field="Supplier.Name" header="عنوان تامین کننده"></p-column>
+      <p-column styleClass="col-button">
+        <ng-template let-row="rowData" let-i="rowIndex" pTemplate="body">
+          <div class="btn-group" role="group" aria-label="First group">
+            <button pButton title="ویرایش" type="button" class="ui-button-raised ui-button-info tbl-button" (click)="onEdit(row)">
+              <span class="pi pi-pencil"></span>
+            </button>
+            <button pButton  title="حذف" type="button" class="ui-button-danger tbl-button" (click)="onRemove(row)">
+              <span class="pi pi-times"></span>
+            </button>
+          </div>
+        </ng-template>
+      </p-column>
+    </p-dataTable> -->
+    <p-contextMenu #cm [model]="items"></p-contextMenu>
+</div>

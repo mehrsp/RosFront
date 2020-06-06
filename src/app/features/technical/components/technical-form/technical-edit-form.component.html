@@ -1,0 +1,52 @@
+<p-toast [style.zIndex]="99999999"  position="center" key="toastMessage"></p-toast>
+
+<div class="ui-fluid">
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <div class="card no-margin ui-rtl" dir="rtl">
+        <div class="ui-g">
+          <div class="ui-g-12 ui-md-6">
+            <h1>{{technicalTitle}}</h1>
+          </div>
+          <div class="ui-g-12 ui-md-6 text-left">
+            <p-button label="" icon="pi pi-arrow-left" iconPos="left" (onClick)="onCancel($event)">
+            </p-button>
+          </div>
+        </div>
+        <form #TechnicalForm="ngForm" class="mt-5" (ngSubmit)="onSubmit($event)">
+          <div class="ui-g form-group">
+
+            <!-- title label and input -->
+            <div class="ui-g-12 ui-md-2">
+              <label for="input">عنوان مشخصه</label>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+              <span class="md-inputfield">
+                <input name="title" [(ngModel)]="model.Title"
+                autofocus
+                id="title"
+                #title="ngModel"
+                type="text"  pInputText required />
+              </span>
+              <div [hidden]="title.valid || title.untouched">
+                <div [hidden]="!title.hasError('required')" class="text-danger">
+                 عنوان را وارد نمایید
+                </div>
+              </div>
+            </div>
+            <div class="ui-g-12 ui-md-4"></div>
+            <!-- end title label and input -->
+
+              <div class="ui-g-12 ui-md-2"></div>
+              <div class="ui-g-12 ui-md-6">
+              <button type="submit" class="btn btn-primary" 
+              icon="pi pi-save" iconPos="left"
+              [disabled]="!TechnicalForm.form.valid" label="ذخیره" pButton></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+ </div>
+  

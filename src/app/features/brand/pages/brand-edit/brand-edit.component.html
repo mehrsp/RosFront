@@ -1,0 +1,11 @@
+<p-toast [style.zIndex]="99999999"  position="center" key="toastMessage"></p-toast>
+
+  <app-brand-edit-form
+    [uploadedFiles]="uploadedFiles"
+    [editModel]="model"
+    (onReturn)="onReturn($event)" 
+    [title]="title"
+    [countries]="countries"
+    (onSave)="onSave($event)">
+  </app-brand-edit-form>
+

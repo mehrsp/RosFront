@@ -1,0 +1,374 @@
+<div class="ui-fluid">
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <div class="card no-margin ui-rtl" dir="rtl">
+        <div class="ui-g">
+          <div class="ui-g-12 ui-md-6">
+            <h1>{{title}}</h1>
+            <h2>{{userName}}</h2>
+          </div>
+          <div class="ui-g-12 ui-md-6 text-left">
+            <p-button label="" icon="pi pi-arrow-left" iconPos="left" (onClick)="onCancel($event)">
+            </p-button>
+          </div>
+        </div>
+        <div class="ui-g">
+          <div class="ui-g-12 ui-md-12">
+            <p-steps [model]="items" [(activeIndex)]="activeIndex" (change)="onChange($event)"></p-steps>               
+          </div>
+        </div>
+        <!-- spinner -->
+        <div *ngIf="!isSaveUser">
+            <p-fieldset>
+                <div class="ui-fluid" >
+                    <div class="ui-g">
+                      <div class="ui-g-12">
+                        <div class="card no-margin">
+                          <div class="center-progress">
+                              <p-progressSpinner></p-progressSpinner>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                 </div>
+            </p-fieldset>
+        </div>
+        <!-- spinner end -->
+        <!-- create-user step  -->
+          <div *ngIf="activeIndex == 0 && isSaveUser">
+             <p-fieldset>
+               <form #SupplierUserForm="ngForm" class="mt-5" 
+               (ngOnSubmit)="onSubmitUser($event)">
+                 <div class="ui-g form-group">
+      
+                <!-- supplier-user-name label and input -->
+                  <div class="ui-g-12 ui-md-2">
+                    <label for="input">نام کاربری</label>
+                  </div>
+                  <div class="ui-g-12 ui-md-6">
+                    <span class="ui-inputgroup-addon">
+                      <input name="supplierUserName" [(ngModel)]="userModel.UserName"
+                      autofocus
+                      id="supplierUserName"
+                      #supplierUserName="ngModel"
+                      (keyup)="onKey(userModel.UserName)"
+                      type="text"  pInputText required />
+                    </span>
+                    <div [hidden]="supplierUserName.valid || supplierUserName.untouched">
+                        <div [hidden]="!supplierUserName.hasError('required')" class="text-danger">
+                          برای تامین کننده یک نام کاربری وارد کنید
+                        </div>
+                    </div>
+                  </div>
+                  <div class="ui-g-12 ui-md-4"></div>
+                <!-- end of supplier-user-name label and input -->
+      
+                <!-- supplier-password label and input -->
+                  <div class="ui-g-12 ui-md-2">
+                      <label for="input">رمز عبور</label>
+                  </div>
+                  <div class="ui-g-12 ui-md-6">
+                      <span class="ui-inputgroup-addon">
+                        <input name="supplierPassword" [(ngModel)]="userModel.Password"
+                        id="supplierPassword"
+                        #supplierPassword="ngModel"
+                        (keyup)="onKey(userModel.Password)"
+                        type="password" pPassword required />
+                      </span>
+                      <div [hidden]="supplierPassword.valid || supplierPassword.untouched">
+                          <div [hidden]="!supplierPassword.hasError('required')" class="text-danger">
+                           وارد کردن رمز عبور الزامی می باشد 
+                          </div>
+                      </div>
+                  </div>
+                  <div class="ui-g-12 ui-md-4"></div>
+                <!-- end of supplier-password label and input -->
+
+                <!-- next button -->
+                  <div class="ui-g-12 ui-md-2"></div>
+                  <div class="ui-g-12 ui-md-4">
+                    <button type="submit" class="btn btn-primary" 
+                    icon="pi pi-arrow-left" iconPos="left"
+                    (click)="onSubmitUser()"
+                    [disabled]="!isTrue || !SupplierUserForm.form.valid" 
+                    label="بعدی" pButton></button>
+                  </div>
+                <!-- end of next button  -->
+
+                </div>
+              </form>
+            </p-fieldset>
+          </div>
+        <!-- end of create-user  -->
+
+        <!-- create-supplier-information  -->
+          <div *ngIf="activeIndex == 1 && isSaveUser">
+            <p-fieldset>
+                <form #SupplierForm="ngForm" class="mt-5" (ngSubmit)="onNext($event)">
+                    <div class="ui-g form-group">
+
+                      <!-- company-type label and input -->
+                         <div class="ui-g-12 ui-md-2">
+                            <label for="input">نوع تامین کننده</label>
+                         </div>
+                         <div class="ui-g-12 ui-md-4">
+                           <span class="ui-inputgroup-addon">
+                           <p-dropdown [options]="companyTypes"
+                            id="companyType"
+                            #companyType="ngModel"
+                            name="companyType"
+                            [(ngModel)]="model.CompanyType"></p-dropdown>
+                           </span>
+                         </div>
+                         <div class="ui-g-12 ui-md-6"></div>
+                      <!-- end of company-type label and input --> 
+                      
+                      <!-- company-name label and input -->
+                         <div class="ui-g-12 ui-md-2">
+                            <label for="input">عنوان</label>
+                         </div>
+                         <div class="ui-g-12 ui-md-4">
+                           <span class="ui-inputgroup-addon">
+                           <input name="Name" [(ngModel)]="model.Name"
+                             autofocus
+                             id="Name"
+                             #Name="ngModel"
+                             (keyup)="onKey(model.Name)"
+                             type="text"  pInputText required />
+                           </span>
+                           <div [hidden]="Name.valid || Name.untouched">
+                              <div [hidden]="!Name.hasError('required')" class="text-danger">
+                                نام شرکت تامین کننده را وارد نمایید
+                              </div>
+                           </div>
+                         </div>
+                      <!-- end of company-name label and input -->    
+                        
+                      <!-- national-id label and input -->
+                         <div class="ui-g-12 ui-md-2">
+                            <label for="input">شناسه ملی</label>
+                         </div>
+                         <div class="ui-g-12 ui-md-4">
+                           <span class="ui-inputgroup-addon">
+                           <input name="nationalId" [(ngModel)]="model.NationalID"
+                             id="nationalId"
+                             #nationalId="ngModel"
+                             (keyup)="onKey(model.NationalID)"
+                             type="text"  pInputText />
+                           </span>
+                         </div>
+                      <!-- end of national-id label and input --> 
+
+                      <!-- economic-code label and input -->
+                         <div class="ui-g-12 ui-md-2">
+                            <label for="input">کد اقتصادی</label>
+                         </div>
+                         <div class="ui-g-12 ui-md-4">
+                           <span class="ui-inputgroup-addon">
+                           <input name="economiccode" [(ngModel)]="model.EconomicCode"
+                             id="economiccode"
+                             #economiccode="ngModel"
+                             (keyup)="onKey(model.EconomicCode)"
+                             type="text"  pInputText />
+                           </span>
+                         </div>
+                      <!-- end of economic-code label and input --> 
+
+                      <!-- postal-code label and input -->
+                         <div class="ui-g-12 ui-md-2">
+                            <label for="input">کد پستی</label>
+                         </div>
+                         <div class="ui-g-12 ui-md-4">
+                           <span class="ui-inputgroup-addon">
+                           <input name="postalcode" [(ngModel)]="model.PostalCode"
+                             id="postalcode"
+                             #postalcode="ngModel"
+                             (keyup)="onKey(model.PostalCode)"
+                             type="text"  pInputText />
+                           </span>
+                         </div>
+                      <!-- end of postal-code label and input --> 
+
+                      <!-- fax label and input -->
+                       <div class="ui-g-12 ui-md-2">
+                          <label for="input">فکس</label>
+                       </div>
+                       <div class="ui-g-12 ui-md-4">
+                         <span class="ui-inputgroup-addon">
+                         <input name="fax" [(ngModel)]="model.Fax"
+                           id="fax"
+                           #fax="ngModel"
+                           pKeyFilter="money"
+                           (keyup)="onKey(model.Fax)"
+                           type="text"  pInputText />
+                         </span>
+                       </div>
+                      <!-- end of fax label and input --> 
+
+                      <!-- website label and input -->
+                       <div class="ui-g-12 ui-md-2">
+                          <label for="input">وب سایت</label>
+                       </div>
+                       <div class="ui-g-12 ui-md-4">
+                         <span class="ui-inputgroup-addon">
+                         <input name="website" [(ngModel)]="model.Website"
+                           id="website"
+                           class="text-left"
+                           #website="ngModel"
+                           placeholder="//:https"
+                           (keyup)="onKey(model.Website)"
+                           type="text"  pInputText />
+                         </span>
+                       </div>
+                      <!-- end of website label and input --> 
+
+                      <!-- next button -->
+                       <div class="ui-g-12 ui-md-2"></div>
+                       <div class="ui-g-12 ui-md-4">
+                       <button type="submit" class="btn btn-primary" 
+                         icon="pi pi-arrow-left" iconPos="left"
+                         (click)="onNext()"
+                         [disabled]="!isTrue || !SupplierForm.form.valid" 
+                         label="بعدی" pButton></button>
+                        </div>
+                      <!-- end of next button  -->
+                    </div>
+                </form>   
+            </p-fieldset>
+          </div>
+        <!-- end of create-supplier-information  -->
+
+        <!-- supplier-contact-information  -->
+          <div *ngIf="activeIndex == 2">
+              <p-fieldset>
+                  <form #ContactForm="ngForm" class="mt-5">
+                      <div class="ui-g form-group">
+  
+                        <!-- supplier-email label and input -->
+                         <div class="ui-g-12 ui-md-2">
+                          <label for="input">پست الکترونیک</label>
+                         </div>
+                         <div class="ui-g-4 ui-md-4">
+                          <span class="ui-inputgroup-addon">
+                            <input name="email" [(ngModel)]="model.Email"
+                            id="email"
+                            class="text-left"
+                            #email="ngModel"
+                            (keyup)="onKey(model.Email)"
+                            type="text"  pInputText email />
+                          </span>
+                          <div [hidden]="email.valid || email.untouched">
+                              <div [hidden]="!email.hasError('email')" class="text-danger">
+                                ایمیل صحیح نیست
+                              </div>
+                          </div>
+                         </div>
+                        <!-- end of supplier-email label and input --> 
+
+                        <!-- supplier-phone label and input -->
+                         <div class="ui-g-12 ui-md-2">
+                          <label for="input">همراه</label>
+                         </div>
+                         <div class="ui-g-4 ui-md-4">
+                          <div class="ui-inputgroup text-left">
+                              <input name="phone" [(ngModel)]="model.Phone"
+                              id="phone"
+                              class="text-left"
+                              #phone="ngModel"
+                              (keyup)="onKey(model.Phone)"
+                              pKeyFilter="money"
+                              type="text"  pInputText />
+                          </div>                          
+                         </div>
+                        <!-- end of supplier-phone label and input --> 
+                        
+                        <!-- provinces label & dropdown  -->
+                        <div class="ui-g-12 ui-md-2">
+                            <label for="dropdown">استان</label>
+                        </div>
+                        <div class="ui-g-12 ui-md-4">
+                                <p-dropdown name="provinces"
+                                  placeholder="انتخاب کنید" 
+                                  optionLabel="Text"
+                                  [options]="provinces" [(ngModel)]="selectedProvince"
+                                  [filter]="true"
+                                  (onChange)="onChangeProvinces($event)"
+                                  [autoWidth]="false">
+                                </p-dropdown>
+
+                        </div>
+                        <!-- end of provinces label & dropdown  -->
+
+                        <!-- cities label & dropdown  -->
+                          <div class="ui-g-12 ui-md-2">
+                           <label for="dropdown">شهر</label>
+                          </div>
+                          <div class="ui-g-12 ui-md-4">
+                            <p-dropdown name="cities"
+                             optionLabel="Text"  placeholder="انتخاب کنید" 
+                              [options]="cities" [(ngModel)]="selectedCity"
+                              [filter]="true"
+                              [autoWidth]="false">
+                            </p-dropdown>
+                          </div>
+                        <!-- end of cities label & dropdown  -->
+
+                         <!-- address label and input -->
+                         <div class="ui-g-12 ui-md-2">
+                          <label for="input">آدرس</label>
+                         </div>
+                         <div class="ui-g-12 ui-md-10">
+                         <span class="ui-inputgroup-addon">
+                         <textarea class="w-100" name="address" [(ngModel)]="model.Address"
+                           id="address"
+                           #address="ngModel"
+                           (keyup)="onKey(model.Address)"
+                           ></textarea>
+                         </span>
+                        </div>
+                        <!-- end of address label and input --> 
+
+                        <!-- notes label and input -->
+                         <div class="ui-g-12 ui-md-2">
+                          <label for="textarea">یادداشت</label>
+                         </div>
+                         <div class="ui-g-12 ui-md-10">
+                         <span class="ui-inputgroup-addon">
+                         <textarea class="w-100" name="description" [(ngModel)]="model.Description"
+                           id="description"
+                           #description="ngModel"
+                           (keyup)="onKey(model.Description)"
+                           ></textarea>
+                         </span>
+                        </div>
+                        <!-- end of notes label and input --> 
+
+                        <!-- next button -->
+                        <div class="ui-g-12 ui-md-2"></div>
+                        <div class="ui-g-12 ui-md-2">
+                         <button type="submit" class="btn btn-primary" 
+                         icon="pi pi-arrow-right" iconPos="right"
+                         (click)="onPrevious()"
+                         label="قبلی" pButton></button>
+                        </div>
+
+                        
+                        <div class="ui-g-12 ui-md-2">
+                        <button type="submit" class="btn btn-primary" 
+                         icon="pi pi-save" iconPos="left"
+                         (click)="onSubmit()"
+                         [disabled]="!isTrue" 
+                         label="ذخیره" pButton></button>
+                        </div>
+                        
+                        <!-- end of next button  -->
+                      </div>
+                  </form>   
+              </p-fieldset>
+          </div>
+        <!-- end of supplier-contact-information  -->
+      </div>
+    </div>
+  </div>
+ </div>
+  

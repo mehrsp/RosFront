@@ -1,0 +1,8 @@
+<p-toast [style.zIndex]="99999999"  position="center" key="toastMessage"></p-toast>
+
+<app-product-category-edit-form
+  [editModel]="model"
+  (onReturn)="onReturn($event)" 
+  [title]="title"
+  (onSave)="onSave($event)">
+</app-product-category-edit-form>

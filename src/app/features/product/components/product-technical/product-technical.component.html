@@ -1,0 +1,179 @@
+<p-confirmDialog header="اخطار!" icon="pi pi-question-circle" [style]="{width: '425px'}" #cd>
+        <p-footer>
+          <button type="button" pButton  label="بله"  class="ok" (click)="cd.accept()"></button>
+          <button type="button" pButton  label="خیر" (click)="cd.reject()"></button>
+        </p-footer>
+</p-confirmDialog>
+<p-toast [style.zIndex]="99999999"  position="center" key="toastMessage"></p-toast>
+
+<p-dialog appendToBody="true" modal="true" 
+  [style]="{width: '50vw'}"
+  [appendTo]="'body'"
+  [(visible)]="isTechnical">
+  <div class="ui-g form-group ui-rtl" dir="rtl">
+        <form #technicalTechnical="ngForm" class="mt-5" (ngSubmit)="onSubmit($event)">
+            <div class="ui-g form-group">
+                     <!-- start isTechnicalSelect label & checkbox  -->
+                        <div class="ui-g-12 ui-md-2">
+                            <p-checkbox name="isTechnicalSelected" [(ngModel)]="isTechnicalSelected" autofocus id="isTechnicalSelected"  binary="true"></p-checkbox>
+                        </div>
+                        <div class="ui-g-12 ui-md-4">
+                            <label for="input">مشخصه همراه با فیلتر</label>
+                        </div>
+                        <div class="ui-g-12 ui-md-6"></div>
+                     <!-- end of isTechnicalSelect label & checkbox  -->
+
+                      <!-- technical lable & dropDown  -->
+                        <div class="ui-g-12 ui-md-2" *ngIf="isTechnicalSelected">
+                            <label for="dropdown">مشخصه</label>
+                        </div>
+                        <div class="ui-g-12 ui-md-8" *ngIf="isTechnicalSelected">
+                                <p-dropdown name="productCategoryTechnical"  placeholder="انتخاب کنید" 
+                                [options]="productCategoryTechnicals" optionLabel="Text" 
+                                (onChange)="onChangeTechnical($event)"
+                                [(ngModel)]="selectedProductCategoryTechnical"
+                                [filter]="true"
+                                #productCategoryTechnical="ngModel"
+                                [autoWidth]="false">
+                                </p-dropdown>
+                        </div>
+                        <div class="ui-g-12 ui-md-2" *ngIf="isTechnicalSelected"></div>
+                      <!-- end of technical lable & dropDown  -->
+
+                      <!-- technical lable & dropDown  -->
+                        <div class="ui-g-12 ui-md-2" *ngIf="isTechnicalSelected">
+                            <label for="dropdown">انتخاب مقدار مشخصه</label>
+                        </div>
+                        <div class="ui-g-12 ui-md-8" *ngIf="isTechnicalSelected">
+                                <p-dropdown name="technicalChild"  placeholder="انتخاب کنید" 
+                                [options]="technicalChilds" optionLabel="Text" 
+                                [(ngModel)]="selectedTechnicalChild"
+                                [filter]="true"
+                                #technicalChild="ngModel"
+                                [autoWidth]="false">
+                                </p-dropdown>
+                        </div>
+                        <div class="ui-g-12 ui-md-2" *ngIf="isTechnicalSelected"></div>
+                      <!-- end of technical lable & dropDown  -->
+
+                      <!-- start name label & input  -->
+                           <div *ngIf="!isTechnicalSelected" class="ui-g-12 ui-md-2">
+                            <label for="input">نام مشخصه</label>
+                        </div>
+                        <div *ngIf="!isTechnicalSelected" class="ui-g-12 ui-md-4">
+                            <span class="md-inputfield">
+                            <input name="name" [(ngModel)]="model.Name" autofocus id="name"
+                            #name="ngModel"
+                            (keyup)="onKey(model.Name)"
+                            type="text" pInputText />
+                            </span>
+                        </div>
+                        <div *ngIf="!isTechnicalSelected" class="ui-g-12 ui-md-6"></div>
+                      <!-- end of name label & input  -->
+                    
+                      <!-- start descripiton label & input  -->
+                        <div *ngIf="!isTechnicalSelected && !model.IsChecked" class="ui-g-12 ui-md-2">
+                            <label for="input">توضیحات</label>
+                        </div>
+                        <div *ngIf="!isTechnicalSelected && !model.IsChecked" class="ui-g-12 ui-md-4">
+                            <span class="md-inputfield">
+                            <input name="descripiton" [(ngModel)]="model.Description" autofocus id="descripiton"
+                            #descripiton="ngModel"
+                            (keyup)="onKey(model.Description)"
+                            type="text" pInputText />
+                            </span>
+                        </div>
+                        <div *ngIf="!isTechnicalSelected && !model.IsChecked" class="ui-g-12 ui-md-6"></div>
+                    <!-- end of description label & input  -->
+                    <!-- start validation label & input  -->
+                    <div class="ui-g-12 ui-md-2" *ngIf="!isTechnicalSelected">
+                        <p-checkbox name="isChecked" [(ngModel)]="model.IsChecked" autofocus id="isChecked"  binary="true"></p-checkbox>
+                    </div>
+                    <div class="ui-g-12 ui-md-4" *ngIf="!isTechnicalSelected">
+                        <label for="input">بدون توضیحات</label>
+                    </div>
+                    <div class="ui-g-12 ui-md-6" *ngIf="!isTechnicalSelected"></div>
+                  <!-- end of description label & input  -->
+
+                   <!-- start validation label & input  -->
+                   <div *ngIf="!isTechnicalSelected && model.IsChecked" class="ui-g-12 ui-md-2">
+                       <p-checkbox name="isValid" [(ngModel)]="model.IsValid" autofocus id="isValid"  binary="true"></p-checkbox>
+                   </div>
+                   <div *ngIf="!isTechnicalSelected && model.IsChecked" class="ui-g-12 ui-md-4">
+                    <label for="input">مشخصه دارد/ندارد</label>
+                </div>
+                   <div *ngIf="!isTechnicalSelected && model.IsChecked" class="ui-g-12 ui-md-6"></div>
+                   <!-- end of description label & input  -->
+                    <div class="ui-g-12 text-left" >
+                        <div class="ui-g-12 ui-md-6" *ngIf="isTechnicalSelected">
+                            <p-button label="لیست مشخصه ها"
+                              (onClick)="onTechnicalList($event)">
+                            </p-button>
+                        </div>
+                        <div class="ui-g-12 ui-md-6">
+                            <button type="submit" class="btn btn-primary"
+                                (ngSubmit)="onSubmit($event)"
+                                icon="pi pi-save" iconPos="left"
+                                [disabled]="!technicalTechnical.form.valid" label="ذخیره" pButton>
+                            </button>
+                        </div>
+                    </div>
+            </div>
+        </form>
+  </div>
+</p-dialog>
+
+<div class="ui-fluid">
+    <div class="ui-g">
+        <div class="ui-g-12">
+            <div class="card no-margin ui-rtl" dir="rtl">
+                <div class="mt-5">
+                    <div class="ui-g form-group">
+                        <div class="ui-g-12 ui-md-12 text-right">
+                            <p-button label="افزودن مشخصه" icon="pi pi-plus" iconPos="left"
+                                (onClick)="onInsert($event)">
+                            </p-button>
+                        </div>
+                        <p-table #dt [columns]="cols" selectionMode="single" 
+                        [responsive]="true"
+                        (onRowSelect)="onRowSelect($event)"
+                        (onRowUnselect)="onRowUnselect($event)" [value]="technicals">
+                            <ng-template pTemplate="caption">
+                                  <div style="text-align: right">        
+                                      <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                      <input type="text" pInputText size="50" 
+                                       placeholder="جست وجو"
+                                       (input)="dt.filterGlobal($event.target.value, 'contains')" >
+                                  </div>
+                            </ng-template>
+                            <ng-template pTemplate="header" let-columns>
+                                <tr>
+                                    <th *ngFor="let col of columns">
+                                        {{col.header}}
+                                    </th>
+                                    <th style="width:8em"></th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-technical let-columns="columns">
+                                <tr [pSelectableRow]="technical" [pContextMenuRow]="technical">
+                                    <td>{{technical.Technical?.Title}}</td>
+                                    <td>{{technical.Description}}</td>
+                                    <td>
+                                            <div class="btn-group" role="group" aria-label="First group">
+                                              <button pButton title="ویرایش" type="button" class="ui-button-raised ui-button-info tbl-button" (click)="onOpenDialog(technical)">
+                                                <span class="pi pi-pencil"></span>
+                                              </button>
+                                              <button pButton  title="حذف" type="button" class="ui-button-danger tbl-button" (click)="removeTechnical(technical)">
+                                                <span class="pi pi-times"></span>
+                                              </button>
+                                            </div>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                         </p-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

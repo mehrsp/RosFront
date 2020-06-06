@@ -1,0 +1,9 @@
+<p-toast [style.zIndex]="99999999"  position="center" key="toastMessage"></p-toast>
+
+  <app-technical-edit-form
+    [editModel]="model"
+    (onReturn)="onReturn($event)" 
+    [technicalTitle]="title"
+    (onSave)="onSave($event)">
+  </app-technical-edit-form>
+

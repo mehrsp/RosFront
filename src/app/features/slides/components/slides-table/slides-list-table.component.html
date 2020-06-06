@@ -1,0 +1,32 @@
+<p-confirmDialog header="اخطار!" icon="pi pi-question-circle" [style]="{width: '425px'}" #cd>
+    <p-footer>
+      <button type="button" pButton  label="بله"  class="ok" (click)="cd.accept()"></button>
+      <button type="button" pButton  label="خیر" (click)="cd.reject()"></button>
+    </p-footer>
+</p-confirmDialog>
+
+<div class="ui-fluid">
+<div class="ui-g">
+    <div class="ui-g-12">
+        <div class="card no-margin ui-rtl" dir="rtl">
+            <div class="mt-5">
+                <div class="ui-g form-group">
+                    <div class="ui-g-12 ui-md-2"></div>
+                    <div class="ui-g-12 ui-md-8">
+                            <div *ngIf="isDisplayGalleria">
+                                <p-galleria 
+                                    (onImageClicked)="onImageClicked($event)"
+                                    [images]="images"
+                                    panelWidth="500" panelWidth="auto"
+                                    [showCaption]="true">
+                                </p-galleria>
+                            </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-2"></div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

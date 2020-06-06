@@ -1,0 +1,110 @@
+<div class="ui-fluid">
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <div class="card no-margin ui-rtl" dir="rtl">
+        <div class="ui-g">
+          <div class="ui-g-12 ui-md-6">
+            <h1>{{title}}</h1>
+          </div>
+          <div class="ui-g-12 ui-md-6 text-left">
+            <p-button label="" icon="pi pi-arrow-left" iconPos="left" (onClick)="onCancel($event)">
+            </p-button>
+          </div>
+        </div>
+        <form #BrandForm="ngForm" class="mt-5" (ngSubmit)="onSubmit($event)">
+          <div class="ui-g form-group">
+
+            <!-- brand label and input -->
+            <div class="ui-g-12 ui-md-2">
+              <label for="input">عنوان برند</label>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+              <span class="md-inputfield">
+                <input name="brandName" [(ngModel)]="model.Name"
+                autofocus
+                id="name"
+                #name="ngModel"
+                (keyup)="onKey(model.Name)"
+                type="text"  pInputText required />
+              </span>
+            </div>
+            <div class="ui-g-12 ui-md-4"></div>
+            <!-- end brand label and input -->
+
+            <!-- priority label and input -->
+            <div class="ui-g-12 ui-md-2">
+              <label for="input">اولویت</label>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+              <span class="md-inputfield">
+                <input name="brandPriority" [(ngModel)]="model.Priority"
+                autofocus
+                id="priority"
+                #name="ngModel"
+                type="number"  required />
+              </span>
+            </div>
+            <div class="ui-g-12 ui-md-4"></div>
+            <!-- end priority label and input -->
+
+            <!-- countries lable & dropDown  -->
+            <div class="ui-g-12 ui-md-2">
+              <label for="dropdown">کشور سازنده</label>
+            </div>
+            <div class="ui-g-12 ui-md-4">
+                  <p-dropdown name="country"  placeholder="انتخاب کنید" 
+                    [options]="countries" optionLabel="Text" [(ngModel)]="selectedCountry"
+                    [filter]="true"
+                    #country="ngModel"
+                    [autoWidth]="false" required>
+                  </p-dropdown>
+                  <div [hidden]="country.valid || country.untouched">
+                    <div [hidden]="!country.hasError('required')" class="text-danger">
+                    کشور سازنده را انتخاب نمایید
+                    </div>
+                  </div>
+            </div>
+        <!-- end of countries lable & dropDown  -->
+
+            <!-- logo lable and upload -->
+            
+            <div class="ui-g-12 ui-md-12">
+              <p-fileUpload  #form
+                  name="demo[]" 
+                  customUpload="true"
+                  uploadLabel="آپلود"
+                  chooseLabel="انتخاب عکس"
+                  cancelLabel="لغو"
+                  showUploadButton= "false"
+                  (onSelect)="onUpload($event,form)" 
+                  accept="image/*" maxFileSize="1000000">
+                  <ng-template pTemplate="content">
+                      <ul *ngIf="uploadedFiles.length">
+                          <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                      </ul>
+                  </ng-template>
+            </p-fileUpload>
+            </div>
+            <!-- end of logo lable and upload -->
+
+            <!-- description label and input -->
+            <div class="ui-g-12 ui-md-2">
+                <label for="input">توضیحات</label>
+            </div>
+            <div class="ui-g-12 ui-md-12">
+               <p-editor name="brandDescription" [(ngModel)]="model.Description" [style]="{'height':'320px'}"></p-editor>
+            </div>
+            <!-- end description label and input -->
+
+            <div class="ui-g-12 ui-md-4">
+              <button type="submit" class="btn btn-primary" 
+              icon="pi pi-save" iconPos="left"
+              [disabled]="!isTrue || !BrandForm.form.valid" label="ذخیره" pButton></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+ </div>
+  

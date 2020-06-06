@@ -1,0 +1,71 @@
+<div class="ui-fluid">
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <div class="card no-margin ui-rtl" dir="rtl">
+        <div class="ui-g">
+          <div class="ui-g-12 ui-md-6">
+            <h1>{{title}}</h1>
+          </div>
+          <div class="ui-g-12 ui-md-6 text-left">
+            <p-button label="" icon="pi pi-arrow-left" iconPos="left" (onClick)="onCancel($event)">
+            </p-button>
+          </div>
+        </div>
+        <form #ProductCategoryTechnicalForm="ngForm" class="mt-5" (ngSubmit)="onSubmit($event)">
+          <div class="ui-g form-group">
+
+            <div class="ui-g-12 ui-md-12">
+              <p-checkbox name="isTechnicalSelected" [(ngModel)]="isTechnicalSelected" autofocus id="isTechnicalSelected"  binary="true"></p-checkbox>
+            </div>
+            <div class="ui-g-12 ui-md-12" *ngIf="isTechnicalSelected">
+              <label for="dropdown">انتخاب بر اساس مشخصه</label>
+            </div>
+            <div class="ui-g-12 ui-md-12" *ngIf="!isTechnicalSelected">
+              <label for="dropdown">انتخاب بر اساس برند</label>
+            </div>
+            <!-- technical lable & dropDown  -->
+            <div class="ui-g-12 ui-md-2" *ngIf="isTechnicalSelected">
+              <label for="dropdown">مشخصه</label>
+            </div>
+            <div class="ui-g-12 ui-md-4" *ngIf="isTechnicalSelected" >
+                  <p-dropdown name="technical"  placeholder="انتخاب کنید" 
+                    [options]="technicals" optionLabel="Text" [(ngModel)]="selectedTechnical"
+                    [filter]="true"
+                    #technical="ngModel"
+                    [autoWidth]="false" required>
+                  </p-dropdown>
+            </div>
+            <!-- end of technical lable & dropDown  -->
+
+            <!-- brand lable & dropDown  -->
+            <div class="ui-g-12 ui-md-2" *ngIf="!isTechnicalSelected">
+              <label for="dropdown">برند</label>
+            </div>
+            <div class="ui-g-12 ui-md-4" *ngIf="!isTechnicalSelected">
+                  <p-dropdown name="brand"  placeholder="انتخاب کنید" 
+                    [options]="brands" optionLabel="Text" [(ngModel)]="selectedBrand"
+                    [filter]="true"
+                    #brand="ngModel"
+                    [autoWidth]="false">
+                  </p-dropdown>
+            </div>
+            <!-- end of brand lable & dropDown  -->
+
+
+            <div class="ui-g-12 ui-md-2">
+              <button type="submit" class="btn btn-primary" 
+              icon="pi pi-save" iconPos="left"
+              [disabled]="!ProductCategoryTechnicalForm.form.valid" label="ذخیره" pButton></button>
+            </div>
+            <div class="ui-g-12 ui-md-4">
+              <p-button label="لیست مشخصه ها"
+                (onClick)="onTechnical($event)">
+              </p-button>
+            </div>
+          </div>
+        </form> 
+      </div>
+    </div>
+  </div>
+ </div>
+  

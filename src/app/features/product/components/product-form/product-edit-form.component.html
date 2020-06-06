@@ -1,0 +1,155 @@
+<div class="ui-fluid">
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <div class="card no-margin ui-rtl" dir="rtl">
+          <div class="ui-g">
+              <div class="ui-g-12 ui-md-6">
+                <h1>{{title}}</h1>
+              </div>
+              <div class="ui-g-12 ui-md-6 text-left">
+                <p-button label="" icon="pi pi-arrow-left" iconPos="left" (onClick)="onCancel($event)">
+                </p-button>
+              </div>
+          </div>
+               <form #Product="ngForm" class="mt-5" (ngSubmit)="onSubmit($event)">
+                    <div class="ui-g form-group">
+        
+                      <!-- start name label & input  -->
+                         <div class="ui-g-12 ui-md-2">
+                            <label for="input">تیتر</label>
+                         </div>
+                         <div class="ui-g-12 ui-md-4">
+                              <span class="md-inputfield">
+                                <input name="Name" [(ngModel)]="model.Name" autofocus id="name" 
+                                #name="ngModel"
+                                (keyup)="onKey(model.Name)"
+                                type="text" pInputText required />
+                                <div [hidden]="name.valid || name.untouched">
+                                  <div [hidden]="!name.hasError('required')" class="text-danger">
+                                   عنوان محصول را وارد نمایید
+                                  </div>
+                                </div>
+                              </span>
+                         </div>
+                      <!-- end of name label & input  -->
+                
+                      <!-- start price label & input  -->
+                          <div class="ui-g-12 ui-md-2">
+                            <label for="input">قیمت محصول</label>
+                          </div>
+                          <div class="ui-g-12 ui-md-4">
+                             <div class="ui-inputgroup">
+                                    <span class="ui-inputgroup-addon"><i class="pi pi-money-bill"></i></span>
+                                    <input name="price" [(ngModel)]="model.Price" #price="ngModel"
+                                    pInputText pKeyFilter="money" (keyup)="model.Price = thousands(model.Price)" type="text"  pInputText />         
+                              </div>
+                          </div>
+                      <!-- end of price label & input  -->
+        
+                      <!-- start is-quantity label & input switch  -->
+                          <div class="ui-g-12 ui-md-2">
+                            <label for="input">موجود</label>
+                          </div>
+                          <div class="ui-g-12 ui-md-4">
+                             <span class="md-inputfield">
+                                  <p-inputSwitch (onChange)="changeQuantity($event)" name="isQuantity" #isQuantity="ngModel" [(ngModel)]="model.IsQuantity"></p-inputSwitch>
+                              </span>
+                          </div>
+                      <!-- end of is-quantity label & input switch  -->
+        
+                      <!-- start quantity label & input -->
+                          <div class="ui-g-12 ui-md-2" *ngIf="model.IsQuantity" >
+                             <label for="input">تعداد موجودی</label>
+                          </div>
+                          <div class="ui-g-12 ui-md-4" *ngIf="model.IsQuantity">
+                              <span class="md-inputfield">
+                                    <input name="quantity"[(ngModel)]="model.Quantity"
+                                    #quantity="ngModel"
+                                    type="number" />
+                              </span>
+                          </div>
+                          <div class="ui-g-12 ui-md-6" *ngIf="!model.IsQuantity"></div>
+                      <!-- end of quantity label & input -->
+        
+                      <!-- start categories lable & dropDown  -->
+                          <div class="ui-g-12 ui-md-2">
+                            <label for="dropdown">دسته بندی</label>
+                          </div>
+                          <div class="ui-g-12 ui-md-4">
+                                <p-dropdown name="category"  placeholder="انتخاب کنید" 
+                                  [options]="categories" [(ngModel)]="selectedProductCategory"
+                                  optionLabel="Text"
+                                  #category="ngModel"
+                                  [filter]="true"
+                                  [autoWidth]="false" required>
+                                </p-dropdown>
+                                <div [hidden]="category.valid || category.untouched">
+                                  <div [hidden]="!category.hasError('required')" class="text-danger">
+                                   دسته بندی محصول را وارد نمایید
+                                  </div>
+                                </div>
+                          </div>
+                      <!-- end of categories lable & dropDown  -->
+                
+                      <!-- brands lable & dropDown  -->
+                          <div class="ui-g-12 ui-md-2">
+                            <label for="dropdown">برند</label>
+                          </div>
+                          <div class="ui-g-12 ui-md-4">
+                                <p-dropdown name="brand"  placeholder="انتخاب کنید" 
+                                  [options]="brands" optionLabel="Text" [(ngModel)]="selectedBrand"
+                                  [filter]="true"
+                                  [autoWidth]="false">
+                                </p-dropdown>
+                          </div>
+                      <!-- end of brands lable & dropDown  -->
+                
+                      <!-- start supplier lable & dropDown  -->
+                          <div class="ui-g-12 ui-md-2">
+                            <label for="dropdown">تامین کننده</label>
+                          </div>
+                          <div class="ui-g-12 ui-md-4">
+                              <p-dropdown name="supplier"  placeholder="انتخاب کنید" 
+                                [options]="suppliers" optionLabel="Text" [(ngModel)]="selectedSupplier"
+                                [filter]="true"
+                                [autoWidth]="false">
+                              </p-dropdown>
+                          </div>
+                          <div class="ui-g-12 ui-md-6"></div>
+                      <!-- end of Supplier Lable & DropDown  -->
+
+                      <!-- start description lable & editor  -->
+                      <div class="ui-g form-group ui-g-reverse">
+                        <div class="ui-g-12 ui-md-12">
+                          <label for="input">مشخصات</label>
+                        </div>
+                        <div class="ui-g-12 ui-md-12">
+                            <p-editor name="specifications" [(ngModel)]="model.Specifications" [style]="{'height':'320px'}"></p-editor>
+                        </div>
+                      </div>
+                      <!-- end description lable & editor  -->
+
+                      <!-- start description lable & editor  -->
+                          <div class="ui-g form-group ui-g-reverse">
+                              <div class="ui-g-12 ui-md-12">
+                                <label for="input">توضیحات</label>
+                              </div>
+                              <div class="ui-g-12 ui-md-12">
+                                  <p-editor name="description" [(ngModel)]="model.Description" [style]="{'height':'320px'}"></p-editor>
+                              </div>
+                          </div>
+                      <!-- end description lable & editor  -->
+                          
+                          <div class="ui-g-12 ui-md-6">
+                              <button type="submit" class="btn btn-primary" 
+                                  (ngSubmit)="onSubmit($event)"
+                                  icon="pi pi-save" iconPos="left"
+                                  [disabled]="!Product.form.valid || !isTrue" label="ذخیره" pButton></button>
+                          </div>
+                    </div>
+               </form>
+      </div>
+    </div>
+  </div>
+</div>
+  

@@ -1,0 +1,18 @@
+<p-confirmDialog header="!یادداشت" icon="pi pi-question-circle" [style]="{width: '425px'}" #cd>
+        <p-footer>
+          <button type="button" pButton  label="بله"  class="ok" (click)="cd.accept()"></button>
+          <button type="button" pButton  label="خیر" (click)="cd.reject()"></button>
+        </p-footer>
+</p-confirmDialog>
+<p-toast [style.zIndex]="99999999"  position="center" key="toastMessage"></p-toast>
+
+<p-tree [value]="productcategories" 
+selectionMode="single"
+[loading]="loading"
+[filter]="true" filterMode="strict"
+ [contextMenu]="cm" [(selection)]="selectedProductCategory" ></p-tree>
+<p-contextMenu #cm [model]="items" appendTo="body"></p-contextMenu>
+<div style="margin-top: 8px">
+    <button pButton type="button" label="بازکردن همه" (click)="expandAll(productcategories)" style="margin-right: .25em"></button>
+    <button pButton type="button" label="بستن همه" (click)="collapseAll(productcategories)"></button>
+</div>

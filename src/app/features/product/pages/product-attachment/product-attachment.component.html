@@ -1,0 +1,64 @@
+<p-toast [style.zIndex]="99999999"  position="center" key="toastMessage"></p-toast>
+
+<div class="card card-w-title">
+        <div class="ui-g ui-rtl" dir="rtl">
+           <div class="ui-g-12 ui-md-10 text-right">
+                <h1>فایل های ضمیمه {{title}}</h1>
+           </div>    
+           <div class="ui-g-12 ui-md-2 text-left">
+             <p-button label="" icon="pi pi-arrow-left" iconPos="left"
+              (onClick)="onCancel($event)">
+             </p-button>
+           </div>
+        </div>
+        <p-tabView class="ui-rtl" dir="rtl" (onChange)="handleChange($event)">
+          <p-tabPanel header="عکـس ها" leftIcon="pi pi-images">
+              <div *ngIf="tabIndex == 0">
+                 <app-product-image (onUploadImage)="onUploadImage($event)" 
+                                 [uploadedFiles]="uploadedFiles"
+                                 [images]="images" 
+                                 [isDisplayGalleria]="isDisplayGalleria"
+                                 (onDelete)="onRemoveImage($event)">
+                 </app-product-image>
+            </div>
+          </p-tabPanel>
+           <p-tabPanel header="مشخصات فنی" leftIcon="pi pi-external-link">
+            <div *ngIf="tabIndex == 1">
+                <app-product-technical
+                [technicals]="technicals"
+                [technicalChilds]="technicalChilds"
+                (onTechnicalSelectionChange)="onTechnicalSelectionChange($event)"
+                (initProductTechnical)="initProductTechnical($event)"
+                [selectedProductCategoryTechnical]="selectedProductCategoryTechnical"
+                (onSelectedProductCategoryTechnical)="onSelectedProductCategoryTechnical($event)"
+                [isTechnical]="isTechnical"
+                (onInitTechnicals)="onInitTechnicals($event)"
+                [productCategoryTechnicals]="productCategoryTechnicals"
+                (onDelete)="onRemoveTechnical($event)"
+                (onSave)="onSaveTechnical($event)"
+                >
+                </app-product-technical>
+            </div>
+          </p-tabPanel>
+          <p-tabPanel header="کاتالوگ ها" leftIcon="pi pi-file-o">
+            <div *ngIf="tabIndex == 2">
+                <app-product-catalog
+                    (onUploadCatalog)="onUploadCatalog($event)" 
+                    [catalogs]="catalogs" 
+                    (onDelete)="onRemoveCatalog($event)"
+                    (onDownload)="onDownload($event)">
+                </app-product-catalog>
+            </div>             
+          </p-tabPanel>
+          <p-tabPanel header="لینک های مرتبط" leftIcon="pi pi-external-link">
+              <div *ngIf="tabIndex == 3">
+                  <app-product-related
+                  [relateds]="relateds"
+                  (onDelete)="onRemoveRelated($event)"
+                  (onSave)="onSaveRelated($event)"
+                  >
+                  </app-product-related>
+              </div>
+          </p-tabPanel>         
+      </p-tabView>
+</div>

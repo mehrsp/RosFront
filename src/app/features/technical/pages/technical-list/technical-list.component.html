@@ -1,0 +1,19 @@
+<p-toast [style.zIndex]="99999999"  position="center" key="toastMessage"></p-toast>
+
+ <div class="card card-w-title">
+   <div class="ui-g">
+      <div class="ui-g-12 ui-md-12 text-right">
+          <h1>مشخصه ها</h1>
+        </div>
+   </div>
+   <div class="ui-g">     
+     <div class="ui-g-12 ui-md-12 text-right">
+       <p-button label="ایجاد مشخصه جدید" icon="pi pi-plus" iconPos="left"
+        (onClick)="onInsert($event)">
+       </p-button>
+     </div>
+   </div>
+      <app-technical-list-table [technicals]="technicals" 
+      (onUpdate)="onUpdate($event)"
+      (onDelete)="onDelete($event)"></app-technical-list-table>
+  </div>

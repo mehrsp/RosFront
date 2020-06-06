@@ -1,0 +1,20 @@
+<p-toast [style.zIndex]="99999999"  position="center" key="toastMessage"></p-toast>
+
+ <div class="card card-w-title">
+   <div class="ui-g">
+      <div class="ui-g-12 ui-md-12 text-right">
+          <h1>برندها</h1>
+        </div>
+   </div>
+   <div class="ui-g">     
+     <div class="ui-g-12 ui-md-12 text-right">
+       <p-button label="ایجاد برند جدید" icon="pi pi-plus" iconPos="left"
+        (onClick)="onInsert($event)">
+       </p-button>
+     </div>
+   </div>
+      <app-brand-list-table [loading]="loading" [brands]="brands" 
+      (onInsertSubSet)="onInsertSubSet($event)"
+      (onUpdate)="onUpdate($event)"
+      (onDelete)="onDelete($event)"></app-brand-list-table>
+  </div>

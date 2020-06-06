@@ -1,0 +1,12 @@
+<p-toast [style.zIndex]="99999999"  position="center" key="toastMessage"></p-toast>
+
+  <app-product-category-technical-edit-form
+    (onReturn)="onReturn($event)" 
+    [title]="title"
+    [technicals]="technicals"
+    [brands]="brands"
+    [productCategoryId]="productCategoryId"
+    (onSave)="onSave($event)"
+    (onTechnicals)="onTechnicals($event)">
+  </app-product-category-technical-edit-form>
+

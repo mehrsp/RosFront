@@ -1,0 +1,30 @@
+<p-toast [style.zIndex]="99999999"  position="center" key="toastMessage"></p-toast>
+
+  <div class="card card-w-title">
+   <div class="ui-g">
+      <div class="ui-g-12 ui-md-12 text-right">
+          <h1>مدیریت اسلاید شو</h1>
+        </div>
+  </div>
+  <p-dialog appendToBody="true" [contentStyle]="{'max-height':'400px', 'max-width':'500px'}"
+    modal="true" [appendTo]="'body'"
+    [(visible)]="isDetail">
+
+    <app-slides-edit-form (onUploadImage)="onUploadImage($event)" 
+                          [uploadedFiles]="uploadedFiles"
+                          [model]="model"
+                          (onSave)="onSave($event)">
+    </app-slides-edit-form>
+
+  </p-dialog>
+  <div class="ui-g-12 ui-md-6" >
+      <button type="button" 
+      (click)="showDialog()" 
+       pButton icon="pi pi-plus" 
+       label="ایجاد اسلاید جدید"></button>
+  </div>
+  <app-slides-list-table  [images]="images" 
+                          [isDisplayGalleria]="isDisplayGalleria"
+                          (onDelete)="onRemoveImage($event)">
+  </app-slides-list-table>
+  </div>

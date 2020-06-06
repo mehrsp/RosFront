@@ -1,0 +1,92 @@
+<div class="ui-fluid">
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <div class="card no-margin ui-rtl" dir="rtl">
+                 <form #SlideShow="ngForm" class="mt-5" (ngSubmit)="onSubmit($event,form)">
+                      <div class="ui-g form-group">
+          
+                        <!-- start title label & input  -->
+                           <div class="ui-g-12 ui-md-4">
+                              <label for="input">تیتر</label>
+                           </div>
+                           <div class="ui-g-12 ui-md-8">
+                                <span class="md-inputfield">
+                                  <input name="Title" [(ngModel)]="model.Title" autofocus 
+                                  id="title" 
+                                  #title="ngModel"
+                                  (keyup)="onKey(model.Title)"
+                                  type="text" pInputText />
+                                </span>
+                           </div>
+                        <!-- end of title label & input  -->
+                  
+                        <!-- start descripton label & input  -->
+                            <div class="ui-g-12 ui-md-4">
+                                <label for="input">توضیحات</label>
+                            </div>
+                            <div class="ui-g-12 ui-md-8">
+                                <span class="md-inputfield">
+                                    <input name="Descripton" [(ngModel)]="model.Descripton"  
+                                    id="descripton" 
+                                    #descripton="ngModel"
+                                    (keyup)="onKey(model.Descripton)"
+                                    type="text" pInputText />
+                                </span>
+                            </div>
+                        <!-- end of descripton label & input  -->
+          
+                        <!-- start link label & input  -->
+                            <div class="ui-g-12 ui-md-4">
+                              <label for="input">لینک</label>
+                            </div>
+                            <div class="ui-g-12 ui-md-8">
+                                <span class="md-inputfield">
+                                <input name="Link" [(ngModel)]="model.Link"  
+                                    id="link" 
+                                    placeholder="https://"
+                                    class="text-left"
+                                    #link="ngModel"
+                                    (keyup)="onKey(model.Link)"
+                                    type="text" pInputText />
+                                </span>
+                            </div>
+                        <!-- end of link label & input  -->
+
+                        <!-- start priority label & input -->
+                            <div class="ui-g-12 ui-md-4">
+                               <label for="input">اولویت عکس</label>
+                            </div>
+                            <div class="ui-g-12 ui-md-8">
+                                <span class="md-inputfield">
+                                      <input name="priority" [(ngModel)]="model.Priority"
+                                      #priority="ngModel"
+                                      type="number" />
+                                </span>
+                            </div>
+                            <div class="ui-g-12 ui-md-6"></div>
+                        <!-- end of priority label & input -->
+          
+                        <!-- start file upload -->
+                        <div class="ui-g-12 ui-md-12">
+                            <p-fileUpload  #form
+                                name="demo[]" 
+                                chooseLabel="انتخاب عکس"
+                                cancelLabel="لغو"
+                                [showUploadButton]="false"
+                                accept="image/*" >
+                            </p-fileUpload>
+                        </div>
+                        <!-- end of file upload -->
+                            <div class="ui-g-12">
+                                <button type="submit" class="btn btn-primary" 
+                                    (ngSubmit)="onSubmit($event,form)"
+                                    icon="pi pi-save" iconPos="left"
+                                    [disabled]="!SlideShow.form.valid || !isTrue" label="ذخیره" pButton></button>
+                            </div>
+                      </div>
+                 </form>
+        </div>
+      </div>
+    </div>
+  </div>
+    

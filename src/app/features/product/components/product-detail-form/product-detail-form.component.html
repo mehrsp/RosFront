@@ -1,0 +1,78 @@
+<div class="ui-fluid">
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <div class="card no-margin ui-rtl" dir="rtl">
+                 <form #ProductDetail="ngForm" class="mt-5" (ngSubmit)="onSubmit($event)">
+                      <div class="ui-g form-group">
+          
+                        <!-- start name label & input  -->
+                           <div class="ui-g-12 ui-md-4">
+                              <label for="input">نام محصول</label>
+                           </div>
+                           <div class="ui-g-12 ui-md-8">
+                                <span class="md-inputfield">
+                                  <input name="Name" [(ngModel)]="model.Name" autofocus id="name" 
+                                  #name="ngModel"
+                                  (keyup)="onKey(model.Name)"
+                                  type="text" pInputText required />
+                                  <div [hidden]="name.valid || name.untouched">
+                                    <div [hidden]="!name.hasError('required')" class="text-danger">
+                                     عنوان محصول را وارد نمایید
+                                    </div>
+                                  </div>
+                                </span>
+                           </div>
+                        <!-- end of name label & input  -->
+                  
+                        <!-- start price label & input  -->
+                            <div class="ui-g-12 ui-md-4">
+                              <label for="input">قیمت محصول</label>
+                            </div>
+                            <div class="ui-g-12 ui-md-8">
+                               <div class="ui-inputgroup">
+                                      <span class="ui-inputgroup-addon"><i class="pi pi-money-bill"></i></span>
+                                      <input name="price" [(ngModel)]="model.Price" #price="ngModel"
+                                      pInputText pKeyFilter="money" (keyup)="model.Price = thousands(model.Price)" type="text"  pInputText />         
+                                </div>
+                            </div>
+                        <!-- end of price label & input  -->
+          
+                        <!-- start is-quantity label & input switch  -->
+                            <div class="ui-g-12 ui-md-4">
+                              <label for="input">موجود</label>
+                            </div>
+                            <div class="ui-g-12 ui-md-8">
+                               <span class="md-inputfield">
+                                    <p-inputSwitch (onChange)="changeQuantity($event)" name="isQuantity" #isQuantity="ngModel" [(ngModel)]="model.IsQuantity"></p-inputSwitch>
+                                </span>
+                            </div>
+                        <!-- end of is-quantity label & input switch  -->
+          
+                        <!-- start quantity label & input -->
+                            <div class="ui-g-12 ui-md-4" *ngIf="model.IsQuantity" >
+                               <label for="input">تعداد</label>
+                            </div>
+                            <div class="ui-g-12 ui-md-8" *ngIf="model.IsQuantity">
+                                <span class="md-inputfield">
+                                      <input name="quantity"[(ngModel)]="model.Quantity"
+                                      #quantity="ngModel"
+                                      type="number" />
+                                </span>
+                            </div>
+                            <div class="ui-g-12 ui-md-6" *ngIf="!model.IsQuantity"></div>
+                        <!-- end of quantity label & input -->
+          
+                                                    
+                            <div class="ui-g-12">
+                                <button type="submit" class="btn btn-primary" 
+                                    (ngSubmit)="onSubmit($event)"
+                                    icon="pi pi-save" iconPos="left"
+                                    [disabled]="!ProductDetail.form.valid || !isTrue" label="ذخیره" pButton></button>
+                            </div>
+                      </div>
+                 </form>
+        </div>
+      </div>
+    </div>
+  </div>
+    

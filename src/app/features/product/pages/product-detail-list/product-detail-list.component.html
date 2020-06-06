@@ -1,0 +1,34 @@
+<p-toast [style.zIndex]="99999999"  position="center" key="toastMessage"></p-toast>
+
+<p-dialog appendToBody="true" [contentStyle]="{'max-height':'400px', 'max-width':'500px'}"
+  modal="true" [appendTo]="'body'"
+  [(visible)]="isDetail">
+
+  <app-product-detail-form [model]="model"
+                           (onSave)="onSave($event)">
+  </app-product-detail-form>
+
+</p-dialog>
+<div class="card card-w-title">
+    <div class="ui-g ui-rtl" dir="rtl">
+       <div class="ui-g-12 ui-md-10 text-right">
+            <h1>افزودن محصول بر اساس سایز و رنگ به {{title}}</h1>
+       </div>    
+       <div class="ui-g-12 ui-md-2 text-left">
+         <p-button label="" icon="pi pi-arrow-left" iconPos="left"
+          (onClick)="onCancel($event)">
+         </p-button>
+       </div>
+       <div class="ui-g-12 ui-md-6" >
+          <button type="button" 
+          (click)="showDialog()" 
+           pButton icon="pi pi-plus" 
+           label="جدید"></button>
+      </div>
+     </div>
+          <app-product-detail-list-table [id]="id"
+                                         [productDetails]="productDetails"
+                                         (onDelete)="onDelete($event)" 
+                                         (onSave)="onSave($event)">
+          </app-product-detail-list-table>
+  </div>

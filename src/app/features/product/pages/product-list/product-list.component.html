@@ -1,0 +1,32 @@
+<p-toast [style.zIndex]="99999999"  position="center" key="toastMessage"></p-toast>
+
+ <div class="card card-w-title">
+   <div class="ui-rtl" dir="rtl">
+      <div class="ui-g">
+          <div class="ui-g-12 ui-md-12">
+              <h1>محصولات</h1>
+            </div>
+            
+            <div class="ui-g-12 ui-md-2 ">
+                <p-button label="ایجاد محصول جدید" icon="pi pi-plus" iconPos="left"
+                (onClick)="onInsert($event)">
+                </p-button>
+            </div>
+            <div class="ui-g-12 ui-md-10">
+                <p-button label="مدیریت ضمیمه ها" icon="pi pi-folder" iconPos="left"
+                (onClick)="onInsertAttachments($event)">
+                </p-button>
+            </div>   
+       </div>
+   </div>
+  
+ 
+  
+      <app-product-list-table 
+      (productId)="changeProductId($event)"
+       [loading]="loading" [products]="products" 
+      (onRowDetail)="onRowDetail($event)"
+      (onInsertSubSet)="onInsertSubSet($event)"
+      (onUpdate)="onUpdate($event)"
+      (onDelete)="onDelete($event)"></app-product-list-table>
+  </div>

@@ -1,0 +1,26 @@
+<p-toast [style.zIndex]="99999999"  position="center" key="toastMessage"></p-toast>
+
+<div class="ui-fluid" *ngIf="!isDateRender">
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <div class="card no-margin">
+        <div class="center-progress">
+            <p-progressSpinner></p-progressSpinner>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="isDateRender">
+  <app-product-edit-form
+  [editModel]="model"
+  [categories]="categories" 
+  [brands]="brands"
+  [suppliers]="suppliers"
+  (onReturn)="onReturn($event)" 
+  (onSave)="onSave($event)"
+  (openProductDetail)="showDialog($event)">
+</app-product-edit-form>
+</div>
+
+
