@@ -30,7 +30,7 @@
     "fullcalendar": "4.0.0-alpha",
     "intl": "1.2.5",
     "jalali-moment": "^3.2.3",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "ng2-jalali-date-picker": "^2.2.7",
     "node-sass": "^4.9.4",
     "primeicons": "^2.0.0",
